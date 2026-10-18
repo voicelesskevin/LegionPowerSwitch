@@ -4,6 +4,30 @@
 
 **v0.2.0-alpha.1 公开测试版，不是全机型已验证的正式版。**
 
+## 为什么做这个工具 / Why This Tool Exists
+
+### 中文
+
+最初的痛点很具体：游戏本平时插电、接外屏使用，拔电后掉电较快；临时要带出门，却得先在 Windows 设置和厂商控制软件之间来回找选项；回到工位，又要把这些设置逐项改回。LegionPowerSwitch 起源于这类反复发生、但不值得每次都花时间处理的麻烦。
+
+- **省电设置太分散，临出门容易来不及调整。** 电源模式、CPU 策略、睿频、亮度、刷新率和睡眠时间分布在不同位置。ECO 把本机支持的调整集中到一个按钮，减少重复查找和遗漏。
+- **回到工位，不代表要一直开最高性能。** NORM 面向接电后的日常均衡使用；兼容联想机型选择白标，而不是强制红标。需要打游戏或重负载时，仍可自行用 Fn+Q 或厂商软件切换。
+- **不想为了方便，就被迫一直使用混合显卡模式。** 对于希望保留明确核显 / 独显直连选择的场景，显卡联动是可选项；兼容联想设备可以随模式请求切换，但仍需用户自行重启。它不是其他品牌 BIOS 显卡切换的通用替代品，也不承诺解决所有双屏兼容问题。
+- **点了按钮，还要知道到底有没有生效。** 当前状态与待重启目标分开显示；未重启又切回原模式时，会尝试撤销待处理请求，避免把“已请求”误认为“已切换”。
+
+目标是让“带走电脑”和“回到工位”少几步操作，而不是接管厂商热键、强制重启，或承诺未经测量的续航提升。
+
+### English
+
+The original problem was specific: a gaming laptop normally used on AC power with an external display drained its battery quickly when unplugged. Taking it out on short notice meant digging through Windows settings and the manufacturer's utility, then undoing those changes one by one when returning to the desk. LegionPowerSwitch grew out of that recurring friction.
+
+- **Power-saving settings are scattered, and there may be no time to adjust them before leaving.** Power mode, CPU policy, boost, brightness, refresh rate, and sleep timers live in different places. ECO groups the adjustments supported by the device into one action.
+- **Returning to the desk does not always mean needing maximum performance.** NORM targets balanced everyday use on AC power. On compatible Lenovo machines, it selects balanced mode rather than forcing performance mode. Fn+Q and the manufacturer's controls remain available for gaming or demanding work.
+- **Convenience should not require staying in hybrid graphics mode.** Graphics switching is optional for users who prefer explicit integrated-only or discrete-direct modes. Compatible Lenovo devices can receive a mode-change request, but a user-initiated restart is still required. This is not a universal BIOS graphics switch for other brands or a fix for every multi-monitor issue.
+- **A button press should not be mistaken for a completed change.** Current state and pending restart targets are shown separately. Switching back before restarting attempts to cancel the pending request.
+
+The goal is fewer steps when leaving or returning, not taking over vendor hotkeys, forcing restarts, or promising unmeasured battery-life gains.
+
 ![界面](docs/screenshot.png)
 
 ## 下载与使用
