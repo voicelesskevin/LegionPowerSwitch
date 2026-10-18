@@ -1,0 +1,14 @@
+*.exe
+*.log
+*.pow
+*.json
+*.tmp
+*.xml
+*.zip
+Backups/
+TestRuns/
+dist/
+preview-*.png
+controller-preview.png
+plans-*.ready
+!app.manifest

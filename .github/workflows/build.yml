@@ -1,0 +1,28 @@
+name: Windows Build and Tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        shell: powershell
+        run: .\Build.ps1
+      - name: Unit Tests
+        shell: powershell
+        run: .\Test.ps1
+      - name: UI Layout Tests
+        shell: powershell
+        run: .\TestAppearance.ps1
+      - name: Package
+        shell: powershell
+        run: .\Package.ps1
+      - name: Installer Tests
+        shell: powershell
+        run: .\TestInstaller.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LegionPowerSwitch-win-x64
+          path: dist/*
