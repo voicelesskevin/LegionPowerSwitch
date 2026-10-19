@@ -1,8 +1,33 @@
 # LegionPowerSwitch
 
-**ECO / NORM 两键切换的 Windows 电源工具。** 自动识别内屏和联想扩展，不能确认的硬件功能不执行。
+**优先面向国内 Y9000P 2025 及后续机型使用场景的 ECO / NORM 电源与显卡模式切换工具。** 自动识别内屏和联想扩展，不执行无法确认支持的硬件功能。
 
 **v0.2.0-alpha.1 公开测试版，不是全机型已验证的正式版。**
+
+## 优先适用场景 / Primary Audience
+
+### 中文
+
+**优先面向中国大陆销售的 2025 款及后续 Y9000P 用户：希望在外出核显省电与接电独显直连之间切换，又不想每次打开完整的 Legion Zone 控制中心，或进入 BIOS，再逐项调整 Windows 电源和内屏设置。** 本工具把支持的设置集中到 ECO / NORM 两个入口；显卡联动可选，所需重启仍由用户决定。
+
+这是项目定位，**不是“2025 年以后的所有型号均已兼容”**。当前的实机验证基于 **Y9000P 2025 / IAX10H / 83F5 / NVIDIA GeForce RTX 5070 Ti Laptop GPU**。
+
+| 设备范围 | 当前说明 |
+| --- | --- |
+| 上述 RTX 5070 Ti 开发机 | 已完成文末列出的本机测试，验证范围仍以该清单为准 |
+| Y9000P 的 RTX 5060 / 5080 / 5090 等其他配置及后续款 | 适配候选，尚无本项目实机验证，不因系列名或显卡编号接近就承诺兼容 |
+| Y7000 / Y7000P 系列 | 欢迎验证的候选系列，尚未实测，不列为已支持机型 |
+| 旧款、锐龙 / R 系列、海外 Legion 机型 | 不预设“没有核显”或“必然兼容”，须核对具体 CPU、平台、BIOS 和接口 |
+
+这里的痛点是**显卡切换入口与日常电源设置分散，反复操作麻烦**，并非已经证实 Legion Zone 在技术上独占所有机型的显卡切换。本程序使用现有联想固件 / WMI 接口，不破解 BIOS，也不保证卸载全部联想组件后仍可用。
+
+### English
+
+**Primarily for China-market Y9000P users, especially 2025 and later models, who want fewer steps between battery-saving integrated graphics and plugged-in discrete-direct use.** Instead of repeatedly opening the full Legion Zone utility or entering BIOS and then adjusting Windows settings separately, ECO / NORM groups supported changes into two actions. Graphics switching is optional; any required restart remains user-controlled.
+
+The physically tested development machine is **Y9000P 2025 / IAX10H / 83F5 / RTX 5070 Ti Laptop GPU**. Other Y9000P GPU variants (including RTX 5060 / 5080 / 5090), later models, and Y7000 / Y7000P systems are **unverified candidates, not a supported-device guarantee**. Older, Ryzen-based, and international Legion systems also require device-specific validation.
+
+The problem addressed is fragmented controls and repeated setup, not a proven technical monopoly by Legion Zone. The tool uses existing firmware / WMI interfaces; it does not unlock BIOS features or guarantee operation after removing every Lenovo component.
 
 ## 为什么做这个工具 / Why This Tool Exists
 
@@ -70,6 +95,22 @@ The goal is fewer steps when leaving or returning, not taking over vendor hotkey
 联想扩展依赖本机现有固件 / WMI 驱动，不保证卸载所有联想组件后仍可用。
 其他品牌没有统一 BIOS 显卡切换接口，本版不替代它们的厂商显卡控制程序。
 
+## 旧款、锐龙与海外机型 / Older, Ryzen and International Models
+
+### 中文
+
+- **“核显”和“集显”在这里通常指同一类处理器集成显卡（iGPU）**，不是两个需要互相切换的独立显卡类别；本项目讨论的是 iGPU 与独显（dGPU）的模式。
+- **显卡模式切换并非从 2025 款才出现。** 联想的 [Y7000P / Y9000P 2022 官方说明](https://tools.lenovo.com.cn/doc/detail/id/2080/html) 已涉及 Legion Zone 独显直连与 BIOS 混合模式。这不能直接证明本工具兼容这些旧款。
+- **锐龙 / R 系列要看具体 CPU 和整机设计。** 例如 [Ryzen 9 7945HX](https://www.amd.com/en/products/processors/laptop/ryzen/7000-series/amd-ryzen-9-7945hx.html) 带 Radeon 610M，而 AMD 说明 [Ryzen 7 7435HS 等型号没有集成显卡](https://www.amd.com/en/blogs/2024/new-amd-ryzen-notebook-dgpu-paired-offerings-.html)。这些是处理器差异的例子，不是本项目的已测配置清单；有 iGPU 也不等于显卡切换接口兼容。
+- **海外版不是天然免去这些步骤。** 联想海外手册在 [较早的 Legion 机型中介绍 Lenovo Vantage](https://download.lenovo.com/manual/legion7_16_7/user_guide/en/explore_GPUMode.html)，在 [Gen 10 Legion Pro 7 系列中介绍 Legion Space](https://download.lenovo.com/pccbbs/pubs/legion_pro7_16_10/user_guide/en/index.html)。其中包含混合、仅核显相关模式与独显模式，新款手册也明确切到 DGPU Only 需要重启。应按具体机型手册判断，不能假定海外版不需要厂商工具或重启。
+
+### English
+
+- Here, iGPU means processor-integrated graphics; dGPU means discrete graphics.
+- GPU-mode switching predates 2025: Lenovo documents it for the [2022 Y7000P / Y9000P](https://tools.lenovo.com.cn/doc/detail/id/2080/html). This does not establish compatibility with this tool.
+- Ryzen models vary: the [7945HX includes Radeon 610M](https://www.amd.com/en/products/processors/laptop/ryzen/7000-series/amd-ryzen-9-7945hx.html), whereas [7435HS-class examples lack integrated graphics](https://www.amd.com/en/blogs/2024/new-amd-ryzen-notebook-dgpu-paired-offerings-.html). These examples are not a tested-device list; an iGPU alone does not establish firmware-interface compatibility.
+- International Lenovo guides describe GPU-mode controls in [Vantage on an earlier model](https://download.lenovo.com/manual/legion7_16_7/user_guide/en/explore_GPUMode.html) and [Legion Space on Gen 10 Pro 7](https://download.lenovo.com/pccbbs/pubs/legion_pro7_16_10/user_guide/en/index.html). A restart is required for DGPU Only in the latter guide. Overseas models are not automatically free of vendor-utility or restart requirements.
+
 ## 恢复、更新、移除
 
 首次应用前在安装目录生成本机 `original.json`，并尝试导出 `original-power-plan.pow`。恢复备份及显卡待处理记录绑定本机。
@@ -89,7 +130,7 @@ The goal is fewer steps when leaving or returning, not taking over vendor hotkey
 - 18 项显卡请求 / 撤销 / 重启后验证模拟测试。
 - 32 项兼容策略测试：非联想、缺失接口、未知状态、内外屏识别、模糊面板、刷新率、跨设备备份、默认开关。
 - 100% / 150% / 200% 界面缩放、长结果换行、禁用按钮可读性。
-- **Y9000P IAX10H / 83F5** 实测 ECO、NORM 和恢复，电源、亮度、刷新率、联想模式读回通过。
+- **Y9000P 2025 / IAX10H / 83F5 / RTX 5070 Ti Laptop GPU** 实测 ECO、NORM 和恢复，电源、亮度、刷新率、联想模式读回通过。
 - 在同一台机器上禁用联想扩展，通用降级路径实测通过；不等于其他品牌机器已实测。
 - 旧个人版收到过用户实际重启切换显卡成功的反馈；当前通用版未再次重启验证显卡切换。
 
@@ -115,4 +156,4 @@ powershell.exe -NoProfile -File .\TestAppearance.ps1
 GPL-3.0-only，见 [LICENSE](LICENSE) 与 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
 非官方项目，与 Lenovo / Microsoft 无隶属或认证关系，商标归原权利人所有。
 
-English: Windows x64 ECO / NORM switch with capability-gated Lenovo extensions. Physically tested on one Lenovo 83F5 laptop only. Other manufacturers are not claimed as physically verified.
+English: Windows x64 ECO / NORM switch focused on China-market Y9000P workflows, with capability-gated Lenovo extensions. Physically tested on one Lenovo 83F5 / RTX 5070 Ti laptop only; other GPU variants and Y7000-series models remain unverified.
